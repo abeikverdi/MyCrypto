@@ -6,4 +6,4 @@ export const createContract = create(key);
 export const readContract = read(key);
 export const updateContract = update(key);
 export const deleteContract = destroy(key);
-export const readAllContracts = readAll(key);
+export const readContracts = readAll(key);

@@ -42,7 +42,7 @@ export class ContractProvider extends Component {
   }
 
   private getContracts = () => {
-    const contracts = service.readAllContracts() || [];
+    const contracts = service.readContracts() || [];
     this.setState({ contracts });
   };
 }
