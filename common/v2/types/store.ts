@@ -9,17 +9,6 @@ import {
   Notification
 } from 'v2/types';
 
-export interface LocalStorage {
-  settings: ISettings;
-  accounts: Record<string, Account>;
-  assets: Record<string, Asset>;
-  networks: Record<string, Network>;
-  contracts: Record<string, ExtendedContract>;
-  addressBook: Record<string, AddressBook>;
-  notifications: Record<string, Notification>;
-  screenLockSettings?: Partial<ScreenLockSettings>;
-}
-
 export enum LSKeys {
   ADDRESS_BOOK = 'addressBook',
   ACCOUNTS = 'accounts',
@@ -29,4 +18,15 @@ export enum LSKeys {
   NOTIFICATIONS = 'notifications',
   SETTINGS = 'settings',
   ENCRYPTED = 'screenLockSettings'
+}
+
+export interface LocalStorage {
+  [LSKeys.SETTINGS]: ISettings;
+  [LSKeys.ACCOUNTS]: Record<string, Account>;
+  [LSKeys.ASSETS]: Record<string, Asset>;
+  [LSKeys.NETWORKS]: Record<string, Network>;
+  [LSKeys.CONTRACTS]: Record<string, ExtendedContract>;
+  [LSKeys.ADDRESS_BOOK]: Record<string, AddressBook>;
+  [LSKeys.NOTIFICATIONS]: Record<string, Notification>;
+  [LSKeys.ENCRYPTED]?: Partial<ScreenLockSettings>;
 }
