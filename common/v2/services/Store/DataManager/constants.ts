@@ -1,20 +1,12 @@
 import { LocalCache } from 'v2/types';
-
+import { defaultSettings } from 'v2/config';
 // The name of the key in LocalStorage used for persistence.
 export const LOCALSTORAGE_KEY = 'MyCryptoStorage';
 
 export const ENCRYPTED_STORAGE_KEY = 'MyCryptoEncrypted';
 
 export const CACHE_INIT: LocalCache = {
-  // : LocalCache
-  settings: {
-    fiatCurrency: 'USD',
-    darkMode: false,
-    dashboardAccounts: [],
-    inactivityTimer: 1800000,
-    rates: {},
-    language: 'en'
-  },
+  settings: defaultSettings,
   accounts: {},
   assets: {},
   networks: {},
@@ -22,3 +14,13 @@ export const CACHE_INIT: LocalCache = {
   addressBook: {},
   notifications: {}
 };
+
+export enum LSKeys {
+  ADDRESS_BOOK = 'addressBook',
+  ACCOUNTS = 'accounts',
+  ASSETS = 'assets',
+  CONTRACTS = 'contracts',
+  NETWORKS = 'networks',
+  NOTIFICATIONS = 'notifications',
+  SETTINGS = 'settings'
+}

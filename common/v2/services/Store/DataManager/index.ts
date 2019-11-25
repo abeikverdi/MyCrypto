@@ -1,13 +1,11 @@
+export { default as CacheService } from './DataCache';
+export { getEncryptedCache, setEncryptedCache, destroyEncryptedCache } from './EncryptManager';
 export {
-  default as CacheService,
   hardRefreshCache,
   getCacheRaw,
   getCache,
   setCache,
   destroyCache,
-  getEncryptedCache,
-  setEncryptedCache,
-  destroyEncryptedCache,
   create,
   createWithID,
   read,
@@ -16,6 +14,8 @@ export {
   destroy,
   readAll,
   readSection
-} from './Cache';
+} from './DataManager';
 export * from './constants';
 export * from './types';
+export { createDataSeed } from './seed';
+export { default as StorageService } from './LocalStorage';

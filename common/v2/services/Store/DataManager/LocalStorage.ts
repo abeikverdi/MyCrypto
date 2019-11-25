@@ -26,6 +26,10 @@ export class StorageServiceBase {
     );
   }
 
+  public clearEntry(key: string) {
+    return this.attemptStorageInteraction(() => window.localStorage.removeItem(key));
+  }
+
   public listen(key: string, setCallback: () => void, removeCallback: () => void = noop) {
     return this.attemptStorageInteraction(() =>
       window.addEventListener('storage', e => {

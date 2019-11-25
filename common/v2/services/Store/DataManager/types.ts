@@ -1,4 +1,4 @@
-export interface DataCache {
+export interface IDataCache {
   [identifier: string]: {
     [entry: string]: any;
   };
