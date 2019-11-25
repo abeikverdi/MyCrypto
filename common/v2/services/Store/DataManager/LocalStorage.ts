@@ -1,74 +1,53 @@
-import { IS_DEV, noOp } from 'v2/utils';
+import { noOp } from 'v2/utils';
 
-export class StorageServiceBase {
-  public getEntry(key: string): any {
-    return this.attemptStorageInteraction(() => {
-      const stored = window.localStorage.getItem(key);
+const attemptStorageInteraction = (fn: () => any) => {
+  try {
+    return fn();
+  } catch {
+    throw new Error(`LocalStorage is not available on window.`);
+  }
+};
 
-      if (stored) {
-        try {
-          return JSON.parse(stored);
-        } catch {
-          return stored;
-        }
+export class StorageService {
+  public LSKEY: string;
+  constructor(key: string) {
+    this.LSKEY = key;
+  }
+
+  public getEntry(): any {
+    return attemptStorageInteraction(() => {
+      const stored = window.localStorage.getItem(this.LSKEY);
+      if (!stored) return null;
+      try {
+        return JSON.parse(stored);
+      } catch {
+        return stored;
       }
-
-      return null;
     });
   }
 
-  public setEntry(key: string, value: any) {
-    return this.attemptStorageInteraction(() =>
-      window.localStorage.setItem(key, JSON.stringify(value))
+  public setEntry(value: any) {
+    return attemptStorageInteraction(() =>
+      window.localStorage.setItem(this.LSKEY, JSON.stringify(value))
     );
   }
 
-  public clearEntry(key: string) {
-    return this.attemptStorageInteraction(() => window.localStorage.removeItem(key));
+  public clearEntry() {
+    return attemptStorageInteraction(() => window.localStorage.removeItem(this.LSKEY));
   }
 
   public listen(
-    key: string,
     setCallback: (e: StorageEvent) => void,
     removeCallback: (e: StorageEvent) => void = noOp
   ) {
-    return this.attemptStorageInteraction(() =>
+    return attemptStorageInteraction(() =>
       window.addEventListener('storage', e => {
         const { key: eventKey, isTrusted, newValue } = e;
 
-        if (key === eventKey && isTrusted) {
+        if (this.LSKEY === eventKey && isTrusted) {
           newValue ? setCallback(e) : removeCallback(e);
         }
       })
     );
-  }
-
-  private attemptStorageInteraction(fn: () => any) {
-    try {
-      return fn();
-    } catch {
-      throw new Error(`LocalStorage is not available on window.`);
-    }
-  }
-}
-
-let instantiated = false;
-
-// tslint:disable-next-line
-export default class StorageService extends StorageServiceBase {
-  public static instance = new StorageService();
-
-  constructor() {
-    super();
-
-    if (instantiated) {
-      throw new Error(`StorageService has already been instantiated.`);
-    } else {
-      instantiated = true;
-    }
-
-    if (IS_DEV) {
-      (window as any).StorageService = this;
-    }
   }
 }

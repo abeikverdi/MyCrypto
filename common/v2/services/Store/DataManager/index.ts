@@ -13,7 +13,6 @@ export {
   readAll,
   readSection
 } from './DataManager';
-export * from './constants';
+export { LSKeys } from './constants';
 export * from './types';
 export { createDataSeed } from './seed';
-export { default as StorageService } from './LocalStorage';

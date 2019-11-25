@@ -10,5 +10,6 @@ export enum LSKeys {
   CONTRACTS = 'contracts',
   NETWORKS = 'networks',
   NOTIFICATIONS = 'notifications',
-  SETTINGS = 'settings'
+  SETTINGS = 'settings',
+  ENCRYPTED = 'screenLockSettings'
 }

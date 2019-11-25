@@ -3,7 +3,7 @@ import get from 'lodash/get';
 import { DATA_INIT } from 'v2/config';
 import { IS_DEV } from 'v2/utils';
 import { LocalCache } from 'v2/types';
-import StorageService from './LocalStorage';
+import { StorageService } from './LocalStorage';
 import { LOCALSTORAGE_KEY } from './constants';
 import { IDataCache, DataEntry } from './types';
 import { createDataSeed } from './seed';
@@ -12,12 +12,10 @@ import { createDataSeed } from './seed';
 // If usefull we can restore ttl checks for stale cache by checking
 // https://github.com/MyCryptoHQ/MyCrypto/commit/d10b804e35bb44ce72b8d7d0363b0bbd0ebf7a73
 export class CacheServiceBase {
+  public storage: StorageService;
   private cache: IDataCache = {};
-  private masterKey: string;
-  private storage: StorageService;
 
-  public constructor(masterKey: string, storage: StorageService, persisted: LocalCache) {
-    this.masterKey = masterKey;
+  public constructor(storage: StorageService, persisted: LocalCache) {
     this.storage = storage;
 
     if (persisted) {
@@ -37,7 +35,7 @@ export class CacheServiceBase {
 
     // If that fails, try retrieving it from LocalStorage.
     if (!entry) {
-      const storage = this.storage.getEntry(this.masterKey);
+      const storage = this.storage.getEntry();
 
       if (storage && storage[identifier]) {
         entry = storage[identifier][entryKey];
@@ -66,7 +64,7 @@ export class CacheServiceBase {
 
     // If that fails, try retrieving it from LocalStorage.
     if (!entry) {
-      const storage = this.storage.getEntry(this.masterKey);
+      const storage = this.storage.getEntry();
 
       if (storage && storage[identifier]) {
         entry = storage[identifier];
@@ -103,7 +101,7 @@ export class CacheServiceBase {
   }
 
   private updatePersistedCache() {
-    this.storage.setEntry(this.masterKey, this.cache);
+    this.storage.setEntry(this.cache);
   }
 }
 
@@ -111,24 +109,20 @@ let instantiated = false;
 
 // tslint:disable-next-line
 export default class CacheService extends CacheServiceBase {
-  public static instance = new CacheService();
-
   constructor() {
-    const hasStorage = !!StorageService.instance.getEntry(LOCALSTORAGE_KEY);
+    const storage = new StorageService(LOCALSTORAGE_KEY);
+    const hasStorage = !!storage.getEntry();
     const persistence = () => {
-      return hasStorage
-        ? StorageService.instance.getEntry(LOCALSTORAGE_KEY)
-        : createDataSeed(true)(DATA_INIT);
+      return hasStorage ? storage.getEntry() : createDataSeed(true)(DATA_INIT);
     };
 
-    super(LOCALSTORAGE_KEY, StorageService.instance, persistence());
+    super(storage, persistence());
 
     if (instantiated) {
       throw new Error(`CacheService has already been instantiated.`);
     } else {
       instantiated = true;
     }
-
     if (IS_DEV) {
       (window as any).CacheService = this;
     }
