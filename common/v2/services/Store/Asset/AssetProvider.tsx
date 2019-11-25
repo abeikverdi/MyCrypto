@@ -50,6 +50,10 @@ export class AssetProvider extends Component {
     return <AssetContext.Provider value={this.state}>{children}</AssetContext.Provider>;
   }
 
+  public componentDidMount() {
+    this.getAssets();
+  }
+
   private getAssets = () => {
     const assets: ExtendedAsset[] = readAssets() || [];
     this.setState({ assets });

@@ -1,14 +1,10 @@
-import { readAll } from '../DataManager';
 import { Asset, Network, StoreAsset } from 'v2/types';
 import { generateUUID } from 'v2/utils';
 import { DEFAULT_ASSET_DECIMAL } from 'v2/config';
-
-export const getAllAssets = () => {
-  return readAll('assets')();
-};
+import { readAssets } from './Asset';
 
 export const getAssetByTicker = (symbol: string): Asset | undefined => {
-  const assets: Asset[] = getAllAssets();
+  const assets: Asset[] = readAssets();
   return assets.find(asset => asset.ticker.toLowerCase() === symbol.toLowerCase());
 };
 
@@ -36,12 +32,12 @@ export const getNewDefaultAssetTemplateByNetwork = (network: Network): Asset => 
 };
 
 export const getAssetByName = (name: string): Asset | undefined => {
-  const allAssets = getAllAssets();
+  const allAssets = readAssets();
   return allAssets.find(asset => asset.name === name);
 };
 
 export const getAssetByUUID = (uuid: string): Asset | undefined => {
-  const allAssets = getAllAssets();
+  const allAssets = readAssets();
   return allAssets.find(asset => asset.uuid === uuid);
 };
 
@@ -52,7 +48,7 @@ export const getAssetByContractAndNetwork = (
   if (!network || !contractAddress) {
     return undefined;
   }
-  const allAssets = getAllAssets();
+  const allAssets = readAssets();
   return allAssets
     .filter(asset => asset.networkId && asset.contractAddress)
     .filter(asset => asset.networkId === network.id)
