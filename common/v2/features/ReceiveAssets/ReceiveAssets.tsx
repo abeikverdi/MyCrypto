@@ -125,7 +125,7 @@ export function ReceiveAssets({ history }: RouteComponentProps<{}>) {
   const [chosenAssetName, setAssetName] = useState(filteredAssets[0].name);
   const selectedAsset = filteredAssets.find(asset => asset.name === chosenAssetName);
 
-  const ethereum = assets.find(asset => asset.name === 'Ethereum');
+  const ethereum = assets.find(asset => asset.networkId === 'Ethereum');
 
   const initialValues = {
     amount: '0',
