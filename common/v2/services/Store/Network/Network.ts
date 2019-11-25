@@ -1,13 +1,14 @@
-import { create, read, update, destroy, readAll } from '../DataManager';
-import { ExtendedNetwork } from 'v2/types';
+import { ExtendedNetwork, LSKeys } from 'v2/types';
 import { makeExplorer } from 'v2/services/EthService';
+import { create, read, update, destroy, readAll } from '../DataManager';
 
-export const createNetworks = create('networks');
-export const readNetworks = read('networks');
-export const updateNetworks = update('networks');
-export const deleteNetworks = destroy('networks');
+const key = LSKeys.NETWORKS;
+export const createNetworks = create(key);
+export const readNetworks = read(key);
+export const updateNetworks = update(key);
+export const deleteNetworks = destroy(key);
 export const readAllNetworks = () => {
-  const networks = readAll('networks')();
+  const networks = readAll(key)();
   return networks.map(({ blockExplorer, ...rest }: ExtendedNetwork) => ({
     ...rest,
     blockExplorer: blockExplorer ? makeExplorer(blockExplorer) : blockExplorer

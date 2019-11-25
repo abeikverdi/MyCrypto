@@ -1,7 +1,9 @@
+import { LSKeys } from 'v2/types';
 import { getCache, setCache, updateAll, readSection } from '../DataManager';
 
-export const updateSetting = updateAll('settings');
-export const readAllSettings = readSection('settings');
+const key = LSKeys.SETTINGS;
+export const updateSetting = updateAll(key);
+export const readAllSettings = readSection(key);
 
 export const readStorage = () => getCache() || '[]';
 

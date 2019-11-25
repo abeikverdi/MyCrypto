@@ -1,4 +1,6 @@
+import { LSKeys } from 'v2/types';
 import { updateAll, readSection } from '../DataManager';
 
-export const updateScreenLockSettings = updateAll('screenLockSettings');
-export const readScreenLockSettings = readSection('screenLockSettings');
+const key = LSKeys.ENCRYPTED;
+export const updateScreenLockSettings = updateAll(key);
+export const readScreenLockSettings = readSection(key);
