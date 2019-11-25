@@ -70,6 +70,7 @@ export class SettingsProvider extends Component {
     const { children } = this.props;
     return <SettingsContext.Provider value={this.state}>{children}</SettingsContext.Provider>;
   }
+
   private isValidImport(importedCache: string, localStorage: string) {
     try {
       const parsedImport = JSON.parse(importedCache);
@@ -82,6 +83,7 @@ export class SettingsProvider extends Component {
       return false;
     }
   }
+
   private getSettings = () => {
     const settings: ISettings = readAllSettings() || [];
     this.setState({ settings });
