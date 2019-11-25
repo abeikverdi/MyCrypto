@@ -1,21 +1,27 @@
 import get from 'lodash/get';
 
+import { DATA_INIT } from 'v2/config';
 import { IS_DEV } from 'v2/utils';
+import { LocalCache } from 'v2/types';
 import StorageService from './LocalStorage';
 import { LOCALSTORAGE_KEY } from './constants';
 import { IDataCache, DataEntry } from './types';
+import { createDataSeed } from './seed';
 
 // Keep an in Memory copy of LocalStorage.
 // If usefull we can restore ttl checks for stale cache by checking
 // https://github.com/MyCryptoHQ/MyCrypto/commit/d10b804e35bb44ce72b8d7d0363b0bbd0ebf7a73
 export class CacheServiceBase {
   private cache: IDataCache = {};
+  private masterKey: string;
+  private storage: StorageService;
 
-  public constructor() {
-    const persistedCache = StorageService.instance.getEntry(LOCALSTORAGE_KEY);
+  public constructor(masterKey: string, storage: StorageService, persisted: LocalCache) {
+    this.masterKey = masterKey;
+    this.storage = storage;
 
-    if (persistedCache) {
-      this.initializeCache(persistedCache);
+    if (persisted) {
+      this.initializeCache((persisted as unknown) as IDataCache);
     }
   }
 
@@ -31,7 +37,7 @@ export class CacheServiceBase {
 
     // If that fails, try retrieving it from LocalStorage.
     if (!entry) {
-      const storage = StorageService.instance.getEntry(LOCALSTORAGE_KEY);
+      const storage = this.storage.getEntry(this.masterKey);
 
       if (storage && storage[identifier]) {
         entry = storage[identifier][entryKey];
@@ -60,7 +66,7 @@ export class CacheServiceBase {
 
     // If that fails, try retrieving it from LocalStorage.
     if (!entry) {
-      const storage = StorageService.instance.getEntry(LOCALSTORAGE_KEY);
+      const storage = this.storage.getEntry(this.masterKey);
 
       if (storage && storage[identifier]) {
         entry = storage[identifier];
@@ -97,7 +103,7 @@ export class CacheServiceBase {
   }
 
   private updatePersistedCache() {
-    StorageService.instance.setEntry(LOCALSTORAGE_KEY, this.cache);
+    this.storage.setEntry(this.masterKey, this.cache);
   }
 }
 
@@ -108,7 +114,14 @@ export default class CacheService extends CacheServiceBase {
   public static instance = new CacheService();
 
   constructor() {
-    super();
+    const hasStorage = !!StorageService.instance.getEntry(LOCALSTORAGE_KEY);
+    const persistence = () => {
+      return hasStorage
+        ? StorageService.instance.getEntry(LOCALSTORAGE_KEY)
+        : createDataSeed(true)(DATA_INIT);
+    };
+
+    super(LOCALSTORAGE_KEY, StorageService.instance, persistence());
 
     if (instantiated) {
       throw new Error(`CacheService has already been instantiated.`);

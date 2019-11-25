@@ -1,7 +1,4 @@
-import { IS_DEV } from 'v2/utils';
-
-// tslint:disable-next-line
-const noop = () => {};
+import { IS_DEV, noOp } from 'v2/utils';
 
 export class StorageServiceBase {
   public getEntry(key: string): any {
@@ -30,13 +27,17 @@ export class StorageServiceBase {
     return this.attemptStorageInteraction(() => window.localStorage.removeItem(key));
   }
 
-  public listen(key: string, setCallback: () => void, removeCallback: () => void = noop) {
+  public listen(
+    key: string,
+    setCallback: (e: StorageEvent) => void,
+    removeCallback: (e: StorageEvent) => void = noOp
+  ) {
     return this.attemptStorageInteraction(() =>
       window.addEventListener('storage', e => {
         const { key: eventKey, isTrusted, newValue } = e;
 
         if (key === eventKey && isTrusted) {
-          newValue ? setCallback() : removeCallback();
+          newValue ? setCallback(e) : removeCallback(e);
         }
       })
     );

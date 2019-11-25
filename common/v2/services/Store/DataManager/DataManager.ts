@@ -1,24 +1,13 @@
 import { LocalCache } from 'v2/types';
 import { generateUUID } from 'v2/utils';
 
-import { LOCALSTORAGE_KEY, CACHE_INIT } from './constants';
+import { LOCALSTORAGE_KEY } from './constants';
 import { IDataCache, DataEntry } from './types';
 import StorageService from './LocalStorage';
 import { default as DataCache } from './DataCache';
 
-// Low level operations
-export const hardRefreshCache = () => {
-  // @ts-ignore Let us set the initial cache values - is rarely used
-  setCache(CACHE_INIT);
-};
-
-export const getCacheRaw = (): LocalCache => {
-  const c = StorageService.instance.getEntry(LOCALSTORAGE_KEY);
-  return c ? c : CACHE_INIT;
-};
-
 export const getCache = (): LocalCache => {
-  return getCacheRaw();
+  return StorageService.instance.getEntry(LOCALSTORAGE_KEY);
 };
 
 export const setCache = (newCache: LocalCache) => {

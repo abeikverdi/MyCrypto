@@ -1,8 +1,6 @@
 export { default as CacheService } from './DataCache';
 export { getEncryptedCache, setEncryptedCache, destroyEncryptedCache } from './EncryptManager';
 export {
-  hardRefreshCache,
-  getCacheRaw,
   getCache,
   setCache,
   destroyCache,
