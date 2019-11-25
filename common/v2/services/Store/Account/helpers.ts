@@ -1,23 +1,15 @@
 import { bigNumberify, BigNumber } from 'ethers/utils';
 import BN from 'bn.js';
 
-import {
-  Account,
-  Asset,
-  ExtendedAccount,
-  StoreAccount,
-  Network,
-  NodeOptions,
-  INode
-} from 'v2/types';
+import { Asset, ExtendedAccount, StoreAccount, Network, NodeOptions, INode } from 'v2/types';
 import {
   getAssetByUUID,
   getNetworkByName,
   getNetworkById,
   getNodesByNetwork
 } from 'v2/services/Store';
+import { readAccounts } from './Account';
 import { RPCNode, ProviderHandler } from 'v2/services/EthService';
-import { readSection } from '../DataManager';
 
 export const getCurrentsFromContext = (
   accounts: ExtendedAccount[],
@@ -103,19 +95,8 @@ export const getAccountBalance = async (
 
 // Returns an account if it exists
 export const getAccountByAddress = (address: string): ExtendedAccount | undefined => {
-  const accountKeys = getAllAccountKeys();
-  const accounts = getAllAccounts();
-  accountKeys.map(key => {
-    const account: Account = accounts[key];
-    if (account.address === address) {
-      const newAccount: ExtendedAccount = {
-        ...account,
-        uuid: key
-      };
-      return newAccount;
-    }
-  });
-  return undefined;
+  const accounts = readAccounts();
+  return accounts.find(a => a.address === address);
 };
 
 export const getBaseAssetFromAccount = (account: ExtendedAccount): Asset | undefined => {
@@ -125,34 +106,15 @@ export const getBaseAssetFromAccount = (account: ExtendedAccount): Asset | undef
   }
 };
 
-export const getAllAccounts = (): Record<string, Account> => {
-  return readSection('accounts')();
-};
-
-export const getAllAccountKeys = (): string[] => {
-  return Object.keys(readSection('accounts')());
-};
-
 export const getAccountByAddressAndNetworkName = (
   address: string,
   networkName: string
 ): ExtendedAccount | undefined => {
-  const accountKeys = getAllAccountKeys();
-  const accounts = readSection('accounts')();
-  accountKeys.map(key => {
-    const account: Account = accounts[key];
-    if (
-      account.address.toLowerCase() === address.toLowerCase() &&
-      account.networkId === networkName
-    ) {
-      const newAccount: ExtendedAccount = {
-        ...account,
-        uuid: key
-      };
-      return newAccount;
-    }
-  });
-  return undefined;
+  const accounts = readAccounts();
+  return accounts.find(
+    account =>
+      account.address.toLowerCase() === address.toLowerCase() && account.networkId === networkName
+  );
 };
 
 export const getAccountsByAsset = (

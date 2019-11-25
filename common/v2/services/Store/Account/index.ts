@@ -9,8 +9,6 @@ export {
   getAccountByAddress,
   getBaseAsset,
   getBaseAssetFromAccount,
-  getAllAccounts,
-  getAllAccountKeys,
   getAccountByAddressAndNetworkName,
   getAccountsByAsset,
   getAccountBaseBalance,
