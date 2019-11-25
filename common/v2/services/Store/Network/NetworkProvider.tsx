@@ -4,11 +4,11 @@ import { Network, ExtendedNetwork, NodeOptions } from 'v2/types';
 
 export interface ProviderState {
   networks: ExtendedNetwork[];
-  createNetworks(networksData: ExtendedNetwork): void;
-  readNetworks(uuid: string): Network;
-  deleteNetworks(uuid: string): void;
+  createNetwork(networksData: ExtendedNetwork): void;
+  readNetwork(uuid: string): Network;
+  deleteNetwork(uuid: string): void;
   createNetworksNode(uuid: string, nodeData: NodeOptions): void;
-  updateNetworks(uuid: string, networksData: ExtendedNetwork): void;
+  updateNetwork(uuid: string, networksData: ExtendedNetwork): void;
   getNetworkByName(name: string): Network | undefined;
 }
 
@@ -16,29 +16,29 @@ export const NetworkContext = createContext({} as ProviderState);
 
 export class NetworkProvider extends Component {
   public readonly state: ProviderState = {
-    networks: service.readAllNetworks() || [],
-    createNetworks: (networksData: ExtendedNetwork) => {
-      service.createNetworks(networksData);
+    networks: service.readNetworks() || [],
+    createNetwork: (networksData: ExtendedNetwork) => {
+      service.createNetwork(networksData);
       this.getNetworks();
     },
-    readNetworks: (uuid: string) => {
-      return service.readNetworks(uuid);
+    readNetwork: (uuid: string) => {
+      return service.readNetwork(uuid);
     },
-    deleteNetworks: (uuid: string) => {
-      service.deleteNetworks(uuid);
+    deleteNetwork: (uuid: string) => {
+      service.deleteNetwork(uuid);
       this.getNetworks();
     },
     createNetworksNode: (uuid: string, nodeData: NodeOptions) => {
-      const networkCurrentData: Network = service.readNetworks(uuid);
+      const networkCurrentData: Network = service.readNetwork(uuid);
       const newNetworkData: Network = {
         ...networkCurrentData,
         nodes: [...networkCurrentData.nodes, nodeData]
       };
-      service.updateNetworks(uuid, newNetworkData);
+      service.updateNetwork(uuid, newNetworkData);
       this.getNetworks();
     },
-    updateNetworks: (uuid: string, networksData: ExtendedNetwork) => {
-      service.updateNetworks(uuid, networksData);
+    updateNetwork: (uuid: string, networksData: ExtendedNetwork) => {
+      service.updateNetwork(uuid, networksData);
       this.getNetworks();
     },
     getNetworkByName: (name: string): Network | undefined => {
@@ -53,7 +53,7 @@ export class NetworkProvider extends Component {
   }
 
   private getNetworks = () => {
-    const networks: ExtendedNetwork[] = service.readAllNetworks() || [];
+    const networks: ExtendedNetwork[] = service.readNetworks() || [];
     this.setState({ networks });
   };
 }

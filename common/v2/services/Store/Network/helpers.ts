@@ -1,31 +1,27 @@
 import { getAccountByAddress, getAssetByUUID } from 'v2/services/Store';
 import { Asset, Account, DPathFormat, Network, NetworkId, NodeOptions, WalletId } from 'v2/types';
 import { HD_WALLETS } from 'v2/config';
-import { readAll, read, update } from '../DataManager';
-
-export const getAllNetworks = () => {
-  return readAll('networks')();
-};
+import { updateNetwork, readNetwork, readNetworks } from './Network';
 
 export const getNetworkByAddress = (address: string): Network | undefined => {
   const account: Account | undefined = getAccountByAddress(address);
   if (account) {
-    const networks = getAllNetworks();
+    const networks = readNetworks();
     return networks.find(network => account.networkId === network.id);
   }
 };
 export const getNetworkByChainId = (chainId: number): Network | undefined => {
-  const networks = getAllNetworks() || [];
+  const networks = readNetworks() || [];
   return networks.find((network: Network) => network.chainId === chainId);
 };
 
 export const getNetworkByName = (name: string): Network | undefined => {
-  const networks = getAllNetworks() || [];
+  const networks = readNetworks() || [];
   return networks.find((network: Network) => network.name === name);
 };
 
 export const getNetworkById = (id: NetworkId): Network | undefined => {
-  const networks = getAllNetworks() || [];
+  const networks = readNetworks() || [];
   return networks.find((network: Network) => network.id === id);
 };
 
@@ -55,7 +51,7 @@ export const isWalletFormatSupportedOnNetwork = (network: Network, format: Walle
 };
 
 export const getAllNodes = (): NodeOptions[] => {
-  const networks: Network[] = getAllNetworks();
+  const networks: Network[] = readNetworks();
   return networks.flatMap(network => network.nodes);
 };
 
@@ -70,9 +66,9 @@ export const getNodeByName = (name: string): NodeOptions | undefined => {
 };
 
 export const createNode = (node: NodeOptions, network: Network): void => {
-  const cachedNetwork = read('networks')(network.id);
+  const cachedNetwork = readNetwork(network.id);
   cachedNetwork.nodes.push(node);
-  update('networks')(network.id, cachedNetwork);
+  updateNetwork(network.id, cachedNetwork);
 };
 
 export const getBaseAssetByNetwork = (networkObj: Network): Asset | undefined => {

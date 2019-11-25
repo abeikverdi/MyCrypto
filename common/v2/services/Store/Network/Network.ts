@@ -3,11 +3,11 @@ import { makeExplorer } from 'v2/services/EthService';
 import { create, read, update, destroy, readAll } from '../DataManager';
 
 const key = LSKeys.NETWORKS;
-export const createNetworks = create(key);
-export const readNetworks = read(key);
-export const updateNetworks = update(key);
-export const deleteNetworks = destroy(key);
-export const readAllNetworks = () => {
+export const createNetwork = create(key);
+export const readNetwork = read(key);
+export const updateNetwork = update(key);
+export const deleteNetwork = destroy(key);
+export const readNetworks = () => {
   const networks = readAll(key)();
   return networks.map(({ blockExplorer, ...rest }: ExtendedNetwork) => ({
     ...rest,

@@ -1,7 +1,6 @@
 export * from './Network';
 export { NetworkContext, NetworkProvider } from './NetworkProvider';
 export {
-  getAllNetworks,
   getNetworkByAddress,
   getNetworkByChainId,
   getNetworkByName,
