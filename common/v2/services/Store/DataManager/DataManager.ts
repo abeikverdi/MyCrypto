@@ -40,7 +40,7 @@ export const createWithID = <K extends LSKeys>(key: K) => (value: DataEntry, id:
   }
 };
 
-export const read = <K extends LSKeys>(key: K) => (uuid: string): LocalCache[K][string] => {
+export const read = <K extends LSKeys>(key: K) => (uuid: any): LocalCache[K][typeof uuid] => {
   return service.getEntry(key, uuid);
 };
 
@@ -61,7 +61,7 @@ export const destroy = <K extends LSKeys>(key: K) => (uuid: string) => {
 
 export const readAll = <K extends LSKeys>(key: K) => () => {
   const section: LocalCache[K] = readSection(key)();
-  const sectionEntries: [string, LocalCache[K][string]][] = Object.entries(section);
+  const sectionEntries: [string, LocalCache[K][any]][] = Object.entries(section as {});
   return sectionEntries.map(([uuid, value]) => ({ ...value, uuid }));
 };
 
