@@ -1,9 +1,8 @@
-import { LocalCache } from 'v2/types';
+import { LocalCache, LSKeys } from 'v2/types';
 import { generateUUID } from 'v2/utils';
 
 import { IDataCache, DataEntry } from './types';
 import { default as DataCache } from './DataCache';
-import { LSKeys } from './constants';
 
 const service = new DataCache();
 

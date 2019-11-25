@@ -19,3 +19,14 @@ export interface LocalCache {
   notifications: Record<string, Notification>;
   screenLockSettings?: Partial<ScreenLockSettings>;
 }
+
+export enum LSKeys {
+  ADDRESS_BOOK = 'addressBook',
+  ACCOUNTS = 'accounts',
+  ASSETS = 'assets',
+  CONTRACTS = 'contracts',
+  NETWORKS = 'networks',
+  NOTIFICATIONS = 'notifications',
+  SETTINGS = 'settings',
+  ENCRYPTED = 'screenLockSettings'
+}

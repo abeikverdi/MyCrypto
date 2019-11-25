@@ -1,7 +1,6 @@
 import { DATA_INIT } from 'v2/config';
-import { LocalCache } from 'v2/types';
+import { LocalCache, LSKeys } from 'v2/types';
 import { createDataSeed } from './seed';
-import { LSKeys } from './constants';
 
 describe('Data Seed', () => {
   let defaultData: LocalCache;

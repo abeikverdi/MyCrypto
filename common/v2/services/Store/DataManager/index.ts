@@ -13,6 +13,5 @@ export {
   readAll,
   readSection
 } from './DataManager';
-export { LSKeys } from './constants';
 export * from './types';
 export { createDataSeed } from './seed';

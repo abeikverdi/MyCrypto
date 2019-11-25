@@ -29,9 +29,9 @@ import {
   Fiat,
   ContractLegacy,
   AssetLegacy,
-  ISettings
+  ISettings,
+  LSKeys
 } from 'v2/types';
-import { LSKeys } from './constants';
 
 /* Types */
 type DevData = Asset[] | DevAccount[] | Record<string | TUuid, AddressBook>;
