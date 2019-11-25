@@ -17,7 +17,7 @@ import {
   getNodesByNetwork
 } from 'v2/services/Store';
 import { RPCNode, ProviderHandler } from 'v2/services/EthService';
-import { readSection } from '../Cache';
+import { readSection } from '../DataManager';
 
 export const getCurrentsFromContext = (
   accounts: ExtendedAccount[],

@@ -5,6 +5,7 @@ import { Network } from './network';
 import { NetworkId } from './networkId';
 import { WalletId } from './walletId';
 import { ITxReceipt } from './transaction';
+import { TUuid } from './uuid';
 
 export interface Account {
   label?: string;
@@ -19,7 +20,7 @@ export interface Account {
 }
 
 export interface ExtendedAccount extends Account {
-  uuid: string;
+  uuid: string | TUuid;
 }
 
 export interface AssetBalanceObject {

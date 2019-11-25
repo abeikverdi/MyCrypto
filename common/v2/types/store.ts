@@ -2,7 +2,7 @@ import {
   Account,
   Asset,
   AddressBook,
-  Contract,
+  ExtendedContract,
   ISettings,
   Network,
   ScreenLockSettings,
@@ -14,7 +14,7 @@ export interface LocalCache {
   accounts: Record<string, Account>;
   assets: Record<string, Asset>;
   networks: Record<string, Network>;
-  contracts: Record<string, Contract>;
+  contracts: Record<string, ExtendedContract>;
   addressBook: Record<string, AddressBook>;
   notifications: Record<string, Notification>;
   screenLockSettings?: Partial<ScreenLockSettings>;

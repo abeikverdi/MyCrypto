@@ -1,4 +1,4 @@
-import { LOCALSTORAGE_KEY, updateAll, readSection } from '../Cache';
+import { LOCALSTORAGE_KEY, updateAll, readSection } from '../DataManager';
 
 export const updateSetting = updateAll('settings');
 export const readAllSettings = readSection('settings');

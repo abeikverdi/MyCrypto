@@ -1,3 +1,4 @@
+export * from './seed';
 export * from './data';
 export * from './donations';
 export * from './addressMessages';
@@ -14,9 +15,6 @@ export * from './dpaths';
 export * from './constants';
 export { NETWORKS_CONFIG } from './networks';
 export { ETHSCAN_NETWORKS } from './ethScan';
-export { Fiats, AssetsData, ContractsData } from './cacheData';
-import { Fiat } from './cacheData';
-export type Fiat = Fiat;
 export {
   GAS_LIMIT_LOWER_BOUND,
   GAS_LIMIT_UPPER_BOUND,
@@ -24,10 +22,6 @@ export {
   GAS_PRICE_GWEI_UPPER_BOUND,
   GAS_PRICE_DEFAULT
 } from './gasPrice';
-export { accounts as testAccounts } from './accounts';
-export { assets as testAssets } from './assets';
-export { addressBook as testAddressBook } from './addressBook';
-export { settings as testSettings } from './settings';
 export { OS } from './operatingSystems';
 export {
   WALLETS_CONFIG,

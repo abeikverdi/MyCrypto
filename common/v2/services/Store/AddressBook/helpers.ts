@@ -1,4 +1,4 @@
-import { readSection } from '../Cache';
+import { readSection } from '../DataManager';
 import { Account, AddressBook, Network, WalletId } from 'v2/types';
 import { WALLETS_CONFIG } from 'v2/config';
 

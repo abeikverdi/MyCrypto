@@ -1,4 +1,4 @@
-import { create, destroy, read, readAll, update } from '../Cache';
+import { create, destroy, read, readAll, update } from '../DataManager';
 
 export const createAddressBook = create('addressBook');
 export const readAddressBook = read('addressBook');

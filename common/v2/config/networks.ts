@@ -1,14 +1,13 @@
 // @TODO Used for unsupportedTabs. update to unsupportedPaths
 // import { TAB } from 'components/Header/components/constants';
 
-import { WalletId, NetworkId, NetworkLegacy } from 'v2/types';
+import { WalletId, NetworkId, TSymbol, NetworkLegacy } from 'v2/types';
 import { makeExplorer } from 'v2/services/EthService/utils/makeExplorer';
 import { GAS_PRICE_TESTNET, GAS_PRICE_DEFAULT } from './gasPrice';
 import { ethPlorer, ETHTokenExplorer } from './data';
 import { DPathsList as DPaths } from './dpaths';
 
 // Temporay type to bridge the difference between v1 and v2 network definitions.
-
 type NetworkConfig = {
   [key in NetworkId]: NetworkLegacy;
 };
@@ -17,7 +16,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   Ethereum: {
     id: 'Ethereum',
     name: 'Ethereum',
-    unit: 'ETH',
+    unit: 'ETH' as TSymbol,
     chainId: 1,
     isCustom: false,
     color: '#007896',
@@ -43,7 +42,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   Ropsten: {
     id: 'Ropsten',
     name: 'Ropsten',
-    unit: 'RopstenETH',
+    unit: 'RopstenETH' as TSymbol,
     chainId: 3,
     isCustom: false,
     color: '#adc101',
@@ -65,7 +64,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   Kovan: {
     id: 'Kovan',
     name: 'Kovan',
-    unit: 'KovanETH',
+    unit: 'KovanETH' as TSymbol,
     chainId: 42,
     isCustom: false,
     color: '#adc101',
@@ -87,7 +86,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   Rinkeby: {
     id: 'Rinkeby',
     name: 'Rinkeby',
-    unit: 'RinkebyETH',
+    unit: 'RinkebyETH' as TSymbol,
     chainId: 4,
     isCustom: false,
     color: '#adc101',
@@ -109,7 +108,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   Goerli: {
     id: 'Goerli',
     name: 'Goerli',
-    unit: 'GoerliETH',
+    unit: 'GoerliETH' as TSymbol,
     chainId: 5,
     isCustom: false,
     color: '#adc101',
@@ -131,7 +130,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   ETC: {
     id: 'ETC',
     name: 'Ethereum Classic',
-    unit: 'ETC',
+    unit: 'ETC' as TSymbol,
     chainId: 61,
     isCustom: false,
     color: '#669073',
@@ -157,7 +156,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   UBQ: {
     id: 'UBQ',
     name: 'Ubiq',
-    unit: 'UBQ',
+    unit: 'UBQ' as TSymbol,
     chainId: 8,
     isCustom: false,
     color: '#b37aff',
@@ -182,7 +181,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   EXP: {
     id: 'EXP',
     name: 'Expanse',
-    unit: 'EXP',
+    unit: 'EXP' as TSymbol,
     chainId: 2,
     isCustom: false,
     color: '#673ab7',
@@ -207,7 +206,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   POA: {
     id: 'POA',
     name: 'POA',
-    unit: 'POA',
+    unit: 'POA' as TSymbol,
     chainId: 99,
     isCustom: false,
     color: '#6d2eae',
@@ -234,7 +233,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   TOMO: {
     id: 'TOMO',
     name: 'TomoChain',
-    unit: 'TOMO',
+    unit: 'TOMO' as TSymbol,
     chainId: 88,
     isCustom: false,
     color: '#6a488d',
@@ -260,7 +259,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   ELLA: {
     id: 'ELLA',
     name: 'Ellaism',
-    unit: 'ELLA',
+    unit: 'ELLA' as TSymbol,
     chainId: 64,
     isCustom: false,
     color: '#046111',
@@ -285,7 +284,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   Gangnam: {
     id: 'Gangnam',
     name: 'Gangnam',
-    unit: 'ETH',
+    unit: 'ETH' as TSymbol,
     chainId: 43568,
     isCustom: false,
     color: '#adc101',
@@ -309,7 +308,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   MUSIC: {
     id: 'MUSIC',
     name: 'Musicoin',
-    unit: 'MUSIC',
+    unit: 'MUSIC' as TSymbol,
     chainId: 7762959,
     isCustom: false,
     color: '#ffbb00',
@@ -336,7 +335,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   ETSC: {
     id: 'ETSC',
     name: 'Ethereum Social',
-    unit: 'ETSC',
+    unit: 'ETSC' as TSymbol,
     chainId: 28,
     isCustom: false,
     color: '#4295d1',
@@ -361,7 +360,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   EGEM: {
     id: 'EGEM',
     name: 'EtherGem',
-    unit: 'EGEM',
+    unit: 'EGEM' as TSymbol,
     chainId: 1987,
     isCustom: false,
     color: '#D0F7FF',
@@ -387,7 +386,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   CLO: {
     id: 'CLO',
     name: 'Callisto',
-    unit: 'CLO',
+    unit: 'CLO' as TSymbol,
     chainId: 820,
     isCustom: false,
     color: '#00b04a',
@@ -413,7 +412,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   RSK: {
     id: 'RSK',
     name: 'RSK',
-    unit: 'RBTC',
+    unit: 'RBTC' as TSymbol,
     chainId: 30,
     color: '#58A052',
     isCustom: false,
@@ -441,7 +440,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   RSK_TESTNET: {
     id: 'RSK_TESTNET',
     name: 'RSK Testnet',
-    unit: 'RBTC',
+    unit: 'RBTC' as TSymbol,
     chainId: 31,
     color: '#58A052',
     isCustom: false,
@@ -468,7 +467,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   GO: {
     id: 'GO',
     name: 'GO',
-    unit: 'GO',
+    unit: 'GO' as TSymbol,
     chainId: 60,
     isCustom: false,
     color: '#00b04a',
@@ -494,7 +493,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   GO_TESTNET: {
     id: 'GO_TESTNET',
     name: 'GO Testnet',
-    unit: 'GO',
+    unit: 'GO' as TSymbol,
     chainId: 31337,
     isCustom: false,
     color: '#00b04a',
@@ -520,7 +519,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   EOSC: {
     id: 'EOSC',
     name: 'EOS Classic',
-    unit: 'EOSC',
+    unit: 'EOSC' as TSymbol,
     chainId: 20,
     isCustom: false,
     color: '#926565',
@@ -546,7 +545,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   ESN: {
     id: 'ESN',
     name: 'EthersocialNetwork',
-    unit: 'ESN',
+    unit: 'ESN' as TSymbol,
     chainId: 31102,
     isCustom: false,
     color: '#7a56ad',
@@ -571,7 +570,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   AQUA: {
     id: 'AQUA',
     name: 'Aquachain',
-    unit: 'AQUA',
+    unit: 'AQUA' as TSymbol,
     chainId: 61717561,
     isCustom: false,
     color: '#00ffff',
@@ -595,7 +594,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   AKA: {
     id: 'AKA',
     name: 'Akroma',
-    unit: 'AKA',
+    unit: 'AKA' as TSymbol,
     chainId: 200625,
     isCustom: false,
     color: '#aa0087',
@@ -619,7 +618,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   PIRL: {
     id: 'PIRL',
     name: 'Pirl',
-    unit: 'PIRL',
+    unit: 'PIRL' as TSymbol,
     chainId: 3125659152,
     isCustom: false,
     color: '#a2d729',
@@ -643,7 +642,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   ATH: {
     id: 'ATH',
     name: 'Atheios',
-    unit: 'ATH',
+    unit: 'ATH' as TSymbol,
     chainId: 1620,
     isCustom: false,
     color: '#0093c5',
@@ -667,7 +666,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   ETHO: {
     id: 'ETHO',
     name: 'Ether-1',
-    unit: 'ETHO',
+    unit: 'ETHO' as TSymbol,
     chainId: 1313114,
     isCustom: false,
     color: '#7a1336',
@@ -691,7 +690,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   MIX: {
     id: 'MIX',
     name: 'Mix',
-    unit: 'MIX',
+    unit: 'MIX' as TSymbol,
     chainId: 76,
     isCustom: false,
     color: '#e59b2b',
@@ -715,7 +714,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   REOSC: {
     id: 'REOSC',
     name: 'REOSC',
-    unit: 'REOSC',
+    unit: 'REOSC' as TSymbol,
     chainId: 2894,
     isCustom: false,
     color: '#1500db',
@@ -739,7 +738,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   ARTIS_SIGMA1: {
     id: 'ARTIS_SIGMA1',
     name: 'ARTIS sigma1',
-    unit: 'ATS',
+    unit: 'ATS' as TSymbol,
     chainId: 246529,
     isCustom: false,
     color: '#238006',
@@ -767,7 +766,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   ARTIS_TAU1: {
     id: 'ARTIS_TAU1',
     name: 'ARTIS tau1',
-    unit: 'ATS',
+    unit: 'ATS' as TSymbol,
     chainId: 246785,
     isCustom: false,
     color: '#238006',
@@ -795,7 +794,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   THUNDERCORE: {
     id: 'THUNDERCORE',
     name: 'ThunderCore',
-    unit: 'TT',
+    unit: 'TT' as TSymbol,
     chainId: 108,
     isCustom: false,
     color: '#ffc000',
@@ -818,7 +817,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   WEB: {
     id: 'WEB',
     name: 'Webchain',
-    unit: 'WEB',
+    unit: 'WEB' as TSymbol,
     chainId: 24484,
     isCustom: false,
     color: '#0092ee',
@@ -840,7 +839,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   METADIUM: {
     id: 'METADIUM',
     name: 'Metadium',
-    unit: 'META',
+    unit: 'META' as TSymbol,
     chainId: 11,
     isCustom: false,
     color: '#ffc000',
@@ -863,7 +862,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   SOLIDUM: {
     id: 'SOLIDUM',
     name: 'Solidum',
-    unit: 'SUM',
+    unit: 'SUM' as TSymbol,
     chainId: 72106,
     isCustom: false,
     color: '#1e87f0',
@@ -886,7 +885,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   DEXON: {
     id: 'DEXON',
     name: 'DEXON Network',
-    unit: 'DXN',
+    unit: 'DXN' as TSymbol,
     chainId: 237,
     isCustom: false,
     color: '#954a97',
@@ -910,7 +909,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   ETI: {
     id: 'ETI',
     name: 'Etherinc',
-    unit: 'ETI',
+    unit: 'ETI' as TSymbol,
     chainId: 101,
     isCustom: false,
     color: '#3560bf',
@@ -934,7 +933,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   ASK: {
     id: 'ASK',
     name: 'Permission',
-    unit: 'ASK',
+    unit: 'ASK' as TSymbol,
     chainId: 222,
     isCustom: false,
     color: '#000',
@@ -961,7 +960,7 @@ export const NETWORKS_CONFIG: NetworkConfig = {
   AUX: {
     id: 'AUX',
     name: 'Auxilium',
-    unit: 'AUX',
+    unit: 'AUX' as TSymbol,
     chainId: 28945486,
     isCustom: false,
     color: '#85dc35',

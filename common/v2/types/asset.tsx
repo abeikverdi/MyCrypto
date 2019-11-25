@@ -4,6 +4,13 @@ import { NetworkId, TSymbol } from 'v2/types';
 enum TickerBrand {}
 export type TTicker = TickerBrand & string;
 
+export interface Fiat {
+  code: string;
+  name: string;
+  symbol: TSymbol;
+  prefix?: boolean;
+}
+
 export interface IAsset {
   symbol: TSymbol;
   name: string;

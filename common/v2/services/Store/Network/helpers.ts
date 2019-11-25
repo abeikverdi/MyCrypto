@@ -1,7 +1,7 @@
 import { getAccountByAddress, getAssetByUUID } from 'v2/services/Store';
 import { Asset, Account, DPathFormat, Network, NetworkId, NodeOptions, WalletId } from 'v2/types';
 import { HD_WALLETS } from 'v2/config';
-import { readAll, read, update } from '../Cache';
+import { readAll, read, update } from '../DataManager';
 
 export const getAllNetworks = () => {
   return readAll('networks')();

@@ -1,4 +1,4 @@
-import { create, read, update, destroy, readAll, createWithID } from '../Cache';
+import { create, read, update, destroy, readAll, createWithID } from '../DataManager';
 
 export const createAsset = create('assets');
 export const createAssetWithID = createWithID('assets');

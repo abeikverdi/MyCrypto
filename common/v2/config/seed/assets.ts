@@ -1,5 +1,5 @@
 import { Asset } from 'v2/types';
-import { DEFAULT_ASSET_DECIMAL } from './constants';
+import { DEFAULT_ASSET_DECIMAL } from '../constants';
 
 export const assets: { [key in string]: Asset } = {
   '10e14757-78bb-4bb2-a17a-8333830f6698': {

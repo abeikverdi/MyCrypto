@@ -1,4 +1,4 @@
-import { updateAll, readSection } from '../Cache';
+import { updateAll, readSection } from '../DataManager';
 
 export const updateScreenLockSettings = updateAll('screenLockSettings');
 export const readScreenLockSettings = readSection('screenLockSettings');

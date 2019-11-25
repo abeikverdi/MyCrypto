@@ -1,4 +1,5 @@
 import { TAddress } from './address';
+import { TUuid } from './uuid';
 import { TSymbol } from './symbols';
 import { IRates } from './rates';
 import { NodeConfig, CustomNodeConfig, NodeOptions } from './node';
@@ -10,12 +11,14 @@ export type NodeOptions = NodeOptions;
 export type TSymbol = TSymbol;
 export type IRates = IRates;
 export type TAddress = TAddress;
+export type TUuid = TUuid;
 
 export { HardwareWalletId, InsecureWalletId, SecureWalletId, HDWalletId } from './walletSubTypes';
 export { WalletType } from './wallet';
 export { WalletId } from './walletId';
 export { WalletService } from './walletService';
 export {
+  Fiat,
   Asset,
   ExtendedAsset,
   IAsset,
@@ -28,7 +31,7 @@ export {
 export { Account, ExtendedAccount, StoreAccount } from './account';
 export { AddressBook, ExtendedAddressBook } from './addressBook';
 export { Contract, ExtendedContract } from './contract';
-export { ExtendedNetwork, Network, NetworkLegacy } from './network';
+export { ExtendedNetwork, Network, NetworkLegacy, AssetLegacy, ContractLegacy } from './network';
 export { NetworkId } from './networkId';
 export { NodeType } from './node';
 export { DPathFormat } from './dPath';

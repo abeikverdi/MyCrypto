@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { NotificationsProvider, ToastProvider } from 'v2/features';
+import { DATA_INIT } from 'v2/config';
 import {
   AccountProvider,
   AddressBookProvider,
   AssetProvider,
   NetworkProvider,
-  SettingsProvider
+  SettingsProvider,
+  createDataSeed,
+  StorageService,
+  LOCALSTORAGE_KEY
 } from 'v2/services/Store';
 import { DevToolsProvider, RatesProvider, StoreProvider } from 'v2/services';
 
 function AppProviders({ children }: { children: JSX.Element[] | JSX.Element | null }) {
+  useEffect(() => {
+    const seed = createDataSeed(true)(DATA_INIT);
+    // const check = localStorage.getItem(LOCALSTORAGE_KEY);
+    // if (!check || check === '[]' || check === '{}') {
+    StorageService.instance.setEntry(LOCALSTORAGE_KEY, seed);
+    // }
+  }, []);
+
   return (
     <DevToolsProvider>
       <SettingsProvider>

@@ -1,7 +1,7 @@
-import { create, read, update, destroy, readAll } from '../Cache';
+import { create, read, update, destroy, readAll } from '../DataManager';
 
 export const createContract = create('contracts');
-export const readContracts = read('contracts');
-export const updateContracts = update('contracts');
-export const deleteContracts = destroy('contracts');
+export const readContract = read('contracts');
+export const updateContract = update('contracts');
+export const deleteContract = destroy('contracts');
 export const readAllContracts = readAll('contracts');

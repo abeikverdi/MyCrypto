@@ -10,7 +10,7 @@ const getValidEthscanNetworkId = (id: NetworkId): TValidEtherscanNetwork =>
   id === 'Ethereum' ? 'homestead' : (id.toLowerCase() as TValidEtherscanNetwork);
 
 export const createNetworkProviders = (network: Network): FallbackProvider => {
-  const { id, nodes }: Partial<Network> = network;
+  const { id, nodes } = network;
 
   const providers: BaseProvider[] = nodes.map(({ type, url }) => {
     switch (type) {

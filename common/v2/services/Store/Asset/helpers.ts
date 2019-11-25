@@ -1,4 +1,4 @@
-import { readAll } from '../Cache';
+import { readAll } from '../DataManager';
 import { Asset, Network, StoreAsset } from 'v2/types';
 import { generateUUID } from 'v2/utils';
 import { DEFAULT_ASSET_DECIMAL } from 'v2/config';
