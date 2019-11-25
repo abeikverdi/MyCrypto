@@ -9,7 +9,7 @@ import {
   Notification
 } from 'v2/types';
 
-export interface LocalCache {
+export interface LocalStorage {
   settings: ISettings;
   accounts: Record<string, Account>;
   assets: Record<string, Asset>;

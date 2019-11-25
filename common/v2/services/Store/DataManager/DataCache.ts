@@ -2,7 +2,7 @@ import get from 'lodash/get';
 
 import { DATA_INIT } from 'v2/config';
 import { IS_DEV } from 'v2/utils';
-import { LocalCache } from 'v2/types';
+import { LocalStorage } from 'v2/types';
 import { StorageService } from './LocalStorage';
 import { LOCALSTORAGE_KEY } from './constants';
 import { IDataCache, DataEntry } from './types';
@@ -15,7 +15,7 @@ export class CacheServiceBase {
   public storage: StorageService;
   private cache: IDataCache = {};
 
-  public constructor(storage: StorageService, persisted: LocalCache) {
+  public constructor(storage: StorageService, persisted: LocalStorage) {
     this.storage = storage;
 
     if (persisted) {

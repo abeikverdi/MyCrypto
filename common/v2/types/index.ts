@@ -37,7 +37,7 @@ export { NodeType } from './node';
 export { DPathFormat } from './dPath';
 export { ISettings } from './settings';
 export { ScreenLockSettings } from './screenLock';
-export { LocalCache, LSKeys } from './store';
+export { LocalStorage, LSKeys } from './store';
 export { Notification, ExtendedNotification } from './notification';
 export { IERC20 } from './erc20';
 export { ABIFunc, ABIFuncParamless } from './abiFunc';

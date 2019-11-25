@@ -19,7 +19,7 @@ import {
   AddressBook,
   ExtendedAsset,
   ExtendedContract,
-  LocalCache,
+  LocalStorage,
   NetworkId,
   NetworkLegacy,
   WalletId,
@@ -37,8 +37,8 @@ import {
 type DevData = Asset[] | DevAccount[] | Record<string | TUuid, AddressBook>;
 type SeedData = typeof NETWORKS_CONFIG | Fiat[] | DevData;
 type StoreProp = Record<NetworkId, Network> | any;
-type StoreAction = (store: LocalCache) => LocalCache;
-type FlowReducer = (data?: SeedData, store?: LocalCache) => StoreProp;
+type StoreAction = (store: LocalStorage) => LocalStorage;
+type FlowReducer = (data?: SeedData, store?: LocalStorage) => StoreProp;
 type FlowTransducer = (key: LSKeys) => (fn: FlowReducer) => (data?: SeedData) => StoreAction;
 type GenObject<T> = Record<keyof T, T>;
 
@@ -89,7 +89,7 @@ const addNetworks = add(LSKeys.NETWORKS)((networks: SeedData) => {
 });
 
 const addContracts = add(LSKeys.CONTRACTS)(
-  (networks: Record<NetworkId, NetworkLegacy>, store: LocalCache) => {
+  (networks: Record<NetworkId, NetworkLegacy>, store: LocalStorage) => {
     const formatContract = (id: NetworkId) => (c: ContractLegacy): ExtendedContract => ({
       uuid: generateUUID(),
       name: c.name,
@@ -110,7 +110,7 @@ const addContracts = add(LSKeys.CONTRACTS)(
   }
 );
 
-const addContractsToNetworks = add(LSKeys.NETWORKS)((_, store: LocalCache) => {
+const addContractsToNetworks = add(LSKeys.NETWORKS)((_, store: LocalStorage) => {
   const getNetworkContracts = (n: Network) => {
     const nContracts = R.filter(c => c.networkId === n.id, store.contracts);
     return {
@@ -121,7 +121,7 @@ const addContractsToNetworks = add(LSKeys.NETWORKS)((_, store: LocalCache) => {
   return R.mapObjIndexed(getNetworkContracts, store.networks);
 });
 
-const addBaseAssetsToAssets = add(LSKeys.ASSETS)((_, store: LocalCache) => {
+const addBaseAssetsToAssets = add(LSKeys.ASSETS)((_, store: LocalStorage) => {
   const formatAsset = (n: Network): Asset => ({
     uuid: n.baseAsset,
     ticker: n.baseUnit,
@@ -141,7 +141,7 @@ const addBaseAssetsToAssets = add(LSKeys.ASSETS)((_, store: LocalCache) => {
   )(store.networks);
 });
 
-const addFiatsToAssets = add(LSKeys.ASSETS)((fiats: Fiat[], store: LocalCache) => {
+const addFiatsToAssets = add(LSKeys.ASSETS)((fiats: Fiat[], store: LocalStorage) => {
   const formatFiat = ({ code, name }: Fiat): ExtendedAsset => ({
     uuid: generateUUID(),
     name,
@@ -161,7 +161,7 @@ const addFiatsToAssets = add(LSKeys.ASSETS)((fiats: Fiat[], store: LocalCache) =
 });
 
 const addTokensToAssets = add(LSKeys.ASSETS)(
-  (networks: typeof NETWORKS_CONFIG, store: LocalCache) => {
+  (networks: typeof NETWORKS_CONFIG, store: LocalStorage) => {
     const formatToken = (id: NetworkId) => (a: AssetLegacy): ExtendedAsset => ({
       uuid: a.uuid || generateUUID(), // In case a token doesn't have a pregenerated uuid. eg. RSK
       name: a.name,
@@ -184,7 +184,7 @@ const addTokensToAssets = add(LSKeys.ASSETS)(
   }
 );
 
-const updateNetworkAssets = add(LSKeys.NETWORKS)((_, store: LocalCache) => {
+const updateNetworkAssets = add(LSKeys.NETWORKS)((_, store: LocalStorage) => {
   // Since we added baseAsset and tokens to Assets this will return both.
   const findNetworkAssets = (nId: NetworkId): Asset[] =>
     toArray(store.assets).filter(a => a.networkId === nId);
@@ -204,7 +204,7 @@ const updateNetworkAssets = add(LSKeys.NETWORKS)((_, store: LocalCache) => {
 });
 
 /* DevData */
-const addDevAssets = add(LSKeys.ASSETS)((assets: Asset[], store: LocalCache) => {
+const addDevAssets = add(LSKeys.ASSETS)((assets: Asset[], store: LocalStorage) => {
   const assetsToAdd = assets.reduce((acc, curr) => {
     const match = toArray(store.assets).find(
       a => a.ticker === curr.ticker && a.networkId === curr.networkId
@@ -219,7 +219,7 @@ const addDevAssets = add(LSKeys.ASSETS)((assets: Asset[], store: LocalCache) => 
   return R.mergeRight(store.assets, assetsToAdd);
 });
 
-const addDevAccounts = add(LSKeys.ACCOUNTS)((accounts: DevAccount[], store: LocalCache) => {
+const addDevAccounts = add(LSKeys.ACCOUNTS)((accounts: DevAccount[], store: LocalStorage) => {
   const formatAccountAssetBalance = (networkId: NetworkId) => (
     a: SeedAssetBalance
   ): AssetBalanceObject => {
@@ -251,7 +251,7 @@ const addDevAccounts = add(LSKeys.ACCOUNTS)((accounts: DevAccount[], store: Loca
   )(accounts);
 });
 
-const addDevAccountsToSettings = add(LSKeys.SETTINGS)((_, store: LocalCache) => {
+const addDevAccountsToSettings = add(LSKeys.SETTINGS)((_, store: LocalStorage) => {
   const updateDashboardAccounts = (src: TUuid[]) => ({
     dashboardAccounts,
     ...rest
@@ -285,7 +285,7 @@ const devDataTransducers: StoreAction[] = [
 ];
 
 /* Handler to trigger the flow according the environment */
-export const createDataSeed = (shouldSeedDevData: boolean) => (initialStore: LocalCache) => {
+export const createDataSeed = (shouldSeedDevData: boolean) => (initialStore: LocalStorage) => {
   const flow: StoreAction[] =
     shouldSeedDevData && devDataTransducers.length > 0
       ? [...defaultTransducers, ...devDataTransducers]

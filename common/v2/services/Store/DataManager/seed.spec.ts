@@ -1,10 +1,10 @@
 import { DATA_INIT } from 'v2/config';
-import { LocalCache, LSKeys } from 'v2/types';
+import { LocalStorage, LSKeys } from 'v2/types';
 import { createDataSeed } from './seed';
 
 describe('Data Seed', () => {
-  let defaultData: LocalCache;
-  let testData: LocalCache;
+  let defaultData: LocalStorage;
+  let testData: LocalStorage;
 
   const toArray = (object: any): any[] => Object.values(object);
 

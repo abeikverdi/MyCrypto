@@ -1,4 +1,4 @@
-import { LocalCache, LSKeys } from 'v2/types';
+import { LocalStorage, LSKeys } from 'v2/types';
 import { generateUUID } from 'v2/utils';
 
 import { IDataCache, DataEntry } from './types';
@@ -6,11 +6,11 @@ import { default as DataCache } from './DataCache';
 
 const service = new DataCache();
 
-export const getCache = (): LocalCache => {
+export const getCache = (): LocalStorage => {
   return service.storage.getEntry();
 };
 
-export const setCache = (newCache: LocalCache) => {
+export const setCache = (newCache: LocalStorage) => {
   service.storage.setEntry(newCache);
   service.initializeCache((newCache as unknown) as IDataCache);
 };
@@ -40,7 +40,7 @@ export const createWithID = <K extends LSKeys>(key: K) => (value: DataEntry, id:
   }
 };
 
-export const read = <K extends LSKeys>(key: K) => (uuid: any): LocalCache[K][typeof uuid] => {
+export const read = <K extends LSKeys>(key: K) => (uuid: any): LocalStorage[K][typeof uuid] => {
   return service.getEntry(key, uuid);
 };
 
@@ -60,12 +60,12 @@ export const destroy = <K extends LSKeys>(key: K) => (uuid: string) => {
 };
 
 export const readAll = <K extends LSKeys>(key: K) => () => {
-  const section: LocalCache[K] = readSection(key)();
-  const sectionEntries: [string, LocalCache[K][any]][] = Object.entries(section as {});
+  const section: LocalStorage[K] = readSection(key)();
+  const sectionEntries: [string, LocalStorage[K][any]][] = Object.entries(section as {});
   return sectionEntries.map(([uuid, value]) => ({ ...value, uuid }));
 };
 
 export const readSection = <K extends LSKeys>(key: K) => () => {
-  const section: LocalCache[K] = service.getEntries(key);
+  const section: LocalStorage[K] = service.getEntries(key);
   return section;
 };
