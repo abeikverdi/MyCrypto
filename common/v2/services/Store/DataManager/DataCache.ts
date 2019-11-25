@@ -111,10 +111,12 @@ let instantiated = false;
 export default class CacheService extends CacheServiceBase {
   constructor() {
     const storage = new StorageService(LOCALSTORAGE_KEY);
-    const hasStorage = !!storage.getEntry();
-    const persistence = () => {
-      return hasStorage ? storage.getEntry() : createDataSeed(true)(DATA_INIT);
-    };
+    // const hasStorage = !!storage.getEntry();
+    // const persistence = () => {
+    //   return hasStorage ? storage.getEntry() : createDataSeed(true)(DATA_INIT);
+    // };
+
+    const persistence = () => createDataSeed(true)(DATA_INIT);
 
     super(storage, persistence());
 
