@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 
 import { DATA_INIT } from 'v2/config';
-import { IS_DEV } from 'v2/utils';
+import { IS_DEV, noOp } from 'v2/utils';
 import { LocalStorage } from 'v2/types';
 import { StorageService } from './LocalStorage';
 import { LOCALSTORAGE_KEY } from './constants';
@@ -46,6 +46,11 @@ export class CacheServiceBase {
     }
 
     return entry;
+  }
+
+  public reset(data: IDataCache) {
+    this.updatePersistedCache(data);
+    this.initializeCache(data);
   }
 
   public setEntry(identifier: string, entries: DataEntry) {
@@ -100,8 +105,8 @@ export class CacheServiceBase {
     }
   }
 
-  private updatePersistedCache() {
-    this.storage.setEntry(this.cache);
+  private updatePersistedCache(data = this.cache) {
+    this.storage.setEntry(data);
   }
 }
 
@@ -113,8 +118,16 @@ export default class CacheService extends CacheServiceBase {
     const storage = new StorageService(LOCALSTORAGE_KEY);
     const hasStorage = !!storage.getEntry();
     const persistence = () => {
-      return hasStorage ? storage.getEntry() : createDataSeed(true)(DATA_INIT);
+      return hasStorage ? storage.getEntry() : createDataSeed(IS_DEV)(DATA_INIT);
     };
+
+    // Seed LS in ever it is deleted.
+    // Since it has been removed, we expect to use seed.
+    storage.listen(noOp, () => {
+      console.debug('LS removed. Initialising seed...');
+      const seed = persistence();
+      this.reset(seed);
+    });
 
     super(storage, persistence());
 
