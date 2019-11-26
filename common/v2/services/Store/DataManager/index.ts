@@ -14,4 +14,3 @@ export {
   readSection
 } from './DataManager';
 export * from './types';
-export { createDataSeed } from './seed';
