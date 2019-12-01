@@ -4249,6 +4249,13 @@
     "uuid": "ec9a8d15-6545-5ac5-a73c-e4763e0b239f"
   },
   {
+    "address": "0x96006f60b452526481a26eab55265ecdf82e7361",
+    "symbol": "HEX",
+    "decimal": 18,
+    "name": "HollaEx",
+    "uuid": "b44dc659-f1e6-49bc-ab7f-db8fc198e552"
+  },
+  {
     "address": "0xe9C9e7E1DaBea830C958C39D6b25964a6F52143A",
     "symbol": "HEY",
     "decimal": 18,
